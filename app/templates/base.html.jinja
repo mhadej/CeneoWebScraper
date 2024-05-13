@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{url_for('static', filename='bootstrap.min.css')}}" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link href="{{url_for('static', filename='bootstrap.min.css')}}" rel="stylesheet" crossorigin="anonymous">
     <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,11 +15,18 @@
         <h1 class="fs-1">Ceneo Web Scraper</h1>
     </header>
     <div class="position-absolute top-50 start-50 translate-middle text-center">
-        <section class="fs-3"> 
-            {% block content %}
-            <p>To jest plik bazowy</p>
-            {% endblock %}
+        <section class="fs-3" style="width:400px;"> 
+            <div class="list-group list-group-flush">
+                <a href="{{url_for('index')}}" class="list-group-item list-group-item-action bg-dark text-warning fs-5 border-top border-bottom border-light p-3">Bazowa Strona</a>
+                <a href="{{url_for('author')}}" class="list-group-item list-group-item-action bg-dark text-warning fs-5 border-bottom border-light p-3">O Autorze</a>
+                <a href="{{url_for('extract')}}" class="list-group-item list-group-item-action bg-dark text-warning fs-5 border-bottom border-light p-3">Ekstrakcja</a>
+                <a href="{{url_for('products')}}" class="list-group-item list-group-item-action bg-dark text-warning fs-5 border-bottom border-light p-3">Lista produktów</a>
+            <br><br>
+            </div>
         </section>
+        {% block content %}
+            <p>em</p>
+        {% endblock%}
     </div>
     <div class="position-absolute bottom-0 start-50 translate-middle-x">
         <footer class="fs-5">
