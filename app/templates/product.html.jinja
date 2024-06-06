@@ -1,5 +1,13 @@
 {% extends "base.html.jinja" %}
 
 {% block content %}
-    <p>To jest strona jednego produktu ({{product_id}}).</p>
+    <p>To jest strona produktu o ID {{product_id}}.<br><br>Pobierz zestaw danych jako:</p>
+    <div class="btn-group mb-3" role="group" aria-label="Basic example">
+        <a type="button" class="btn btn-warning" href="{{url_for('download_json', product_id=product_id)}}">JSON</a>
+        <a type="button" class="btn btn-warning" href="{{url_for('download_csv', product_id=product_id)}}">CSV</a>
+        <a type="button" class="btn btn-warning" href="{{url_for('download_xlsx', product_id=product_id)}}">XLSX</a>
+    </div>
+    {{opinions}}
+
+    {{stats}}
 {% endblock %}

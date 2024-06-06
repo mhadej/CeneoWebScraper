@@ -97,7 +97,7 @@ def products():
 
     for product_id in products_list:
         with open(f"app/data/stats/{product_id}.json", "r", encoding="UTF-8") as jfile:
-            products.append(json.load(jfile))
+            products.append(product_id)
 
     return render_template("products.html.jinja", products = products)
 
@@ -107,7 +107,15 @@ def author():
 
 @app.route('/product/<product_id>')
 def product(product_id):
-    return render_template("product.html.jinja", product_id = product_id)
+    if os.path.exists("app/data/opinions"):
+        opinions = pd.read_json(f"app/data/opinions/{product_id}.json")
+
+        with open(f"app/data/stats/{product_id}.json", "r") as file:
+            data = json.load(file)
+        stats = pd.json_normalize(data)
+
+        return render_template("product.html.jinja", product_id=product_id, stats=stats.to_html(classes="table table-warning table-hover table-bordered border-warning", table_id="stats", index=False), opinions = opinions.to_html(classes="table table-warning table-hover table-bordered border-warning", table_id="opinions", index=False))
+    return redirect(url_for('extract'))
 
 @app.route('/product/download_json/<product_id>')
 def download_json(product_id):
@@ -120,7 +128,7 @@ def download_csv(product_id):
     return send_file(buffer, "text/csv", as_attachment = True, download_name=f"{product_id}.csv")
 
 
-@app.route('/product/download_csv/<product_id>')
+@app.route('/product/download_xlsx/<product_id>')
 def download_xlsx(product_id):
     ...
 
